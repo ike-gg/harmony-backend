@@ -1,17 +1,17 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import popularSongsByGenreCall from "../lib/popularSongsByGenreCall";
+import getSongCall from "../lib/getSongCall";
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-  const genre = req.query.genre as string;
+  const id = req.query.id as string;
 
-  if (!genre) {
+  if (!id) {
     res.statusCode = 400;
     res.send({ error: "bad request" });
     return;
   }
 
   try {
-    const data = await popularSongsByGenreCall(genre);
+    const data = await getSongCall(id);
     res.statusCode = 200;
     res.send(data);
   } catch (error) {

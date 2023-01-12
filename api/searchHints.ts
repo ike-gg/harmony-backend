@@ -6,7 +6,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   if (!query) {
     res.statusCode = 400;
-    res.send("bad request");
+    res.send({ error: "bad request" });
     return;
   }
 
