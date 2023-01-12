@@ -1,15 +1,9 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-type SearchType = "albums" | "artists" | "songs";
-
-const searchQueryCall = async (query: string, types?: SearchType) => {
+const getArtistCall = async (artistId: string) => {
   const headers = getHeaders();
-  const requestURL = getURL("/v1/catalog/us/search", {
-    term: query,
-    limit: "10",
-    types: types ? types : "albums,artists,songs",
-  }).href;
+  const requestURL = getURL(`/v1/catalog/us/artists/${artistId}`).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
 
@@ -24,4 +18,4 @@ const searchQueryCall = async (query: string, types?: SearchType) => {
   }
 };
 
-export default searchQueryCall;
+export default getArtistCall;

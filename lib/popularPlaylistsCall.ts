@@ -4,7 +4,7 @@ import getURL from "../src/getURL";
 const popularPlaylistsCall = async () => {
   const headers = getHeaders();
   const requestURL = getURL("/v1/catalog/us/charts", {
-    limit: "50",
+    limit: "25",
     chart: "most-played",
     types: "playlists",
   }).href;
