@@ -1,7 +1,7 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const genresCall = async () => {
+const popularGenresCall = async () => {
   const headers = getHeaders();
   const requestURL = getURL("/v1/catalog/us/genres", {
     limit: "50",
@@ -20,4 +20,4 @@ const genresCall = async () => {
   }
 };
 
-export default genresCall;
+export default popularGenresCall;
