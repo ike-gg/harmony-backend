@@ -3,7 +3,9 @@ import getURL from "../src/getURL";
 
 const getArtistCall = async (artistId: string) => {
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/artists/${artistId}`).href;
+  const requestURL = getURL(`/v1/catalog/us/artists/${artistId}`, {
+    include: "genres,music-videos,playlists,albums",
+  }).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
 

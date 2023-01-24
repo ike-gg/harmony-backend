@@ -3,7 +3,9 @@ import getURL from "../src/getURL";
 
 const getPlaylistCall = async (playlistId: string) => {
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/playlists/${playlistId}`).href;
+  const requestURL = getURL(`/v1/catalog/us/playlists/${playlistId}`, {
+    include: "tracks",
+  }).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
 
