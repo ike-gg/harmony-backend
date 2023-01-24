@@ -6,12 +6,12 @@ import sendRequest from "../src/sendRequest";
 export default async (req: VercelRequest, res: VercelResponse) => {
   const providedStorefront = String(req.headers.storefront);
   const storefront = getStorefront(providedStorefront);
-  const parameters = parseParams(req.query, ["include"]);
-  const { id } = req.query;
+  const parameters = parseParams(req.query, ["ids", "include"]);
+  const { ids } = parameters;
 
-  const endpoint = `/v1/catalog/${storefront}/albums/${id}`;
+  const endpoint = `/v1/catalog/${storefront}/albums`;
 
-  if (!id) {
+  if (!ids) {
     res.statusCode = 400;
     res.send({ error: "bad request" });
     return;

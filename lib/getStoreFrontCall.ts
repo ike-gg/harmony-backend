@@ -1,11 +1,9 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const getArtistCall = async (artistId: string) => {
+const getStorefrontsCall = async () => {
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/artists/${artistId}`, {
-    include: "albums,genres",
-  }).href;
+  const requestURL = getURL(`/v1/storefronts`).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
 
@@ -20,4 +18,4 @@ const getArtistCall = async (artistId: string) => {
   }
 };
 
-export default getArtistCall;
+export default getStorefrontsCall;

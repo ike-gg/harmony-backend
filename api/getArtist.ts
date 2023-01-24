@@ -1,8 +1,15 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import getArtistCall from "../lib/getArtistCall";
+import getStorefront from "../src/getStorefront";
+import parseParams from "../src/parseParams";
+import sendRequest from "../src/sendRequest";
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-  const id = req.query.id as string;
+  const providedStorefront = String(req.headers.storefront);
+  const storefront = getStorefront(providedStorefront);
+  const parameters = parseParams(req.query, ["include"]);
+  const { id } = req.query;
+
+  const endpoint = `/v1/catalog/${storefront}/artists/${id}`;
 
   if (!id) {
     res.statusCode = 400;
@@ -11,11 +18,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const data = await getArtistCall(id);
+    const data = await sendRequest(endpoint, { params: parameters });
     res.statusCode = 200;
     res.send(data);
   } catch (error) {
     res.statusCode = 500;
-    res.send({ error });
+    res.send({ error: "internal error" });
   }
 };

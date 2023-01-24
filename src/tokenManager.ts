@@ -38,6 +38,8 @@ const newToken = () => {
 
 let currentToken = newToken();
 
+console.log(newToken());
+
 setInterval(() => {
   currentToken = newToken();
 }, getTimestampInHours(3));
