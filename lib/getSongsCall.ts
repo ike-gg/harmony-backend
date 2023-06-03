@@ -7,10 +7,12 @@ const getSongsCall = async (songsId: string[]) => {
   const headers = getHeaders();
   const requestURL = getURL(`/v1/catalog/us/songs`, {
     ids: songsIdString,
-    include: "albums,artists",
+    include: songsId.length > 15 ? "" : "albums,artists",
   }).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
+
+    console.log(request);
 
     if (!request.ok) {
       throw new Error("Something went wrong...");
@@ -19,6 +21,7 @@ const getSongsCall = async (songsId: string[]) => {
     const response = await request.json();
     return response;
   } catch (error) {
+    console.log(error);
     throw new Error("Something went wrong...");
   }
 };
