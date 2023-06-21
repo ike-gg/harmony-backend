@@ -5,7 +5,7 @@ const popularAlbumsCall = async () => {
   const headers = getHeaders();
   const requestURL = getURL("/v1/catalog/us/charts", {
     types: "albums",
-    limit: "25",
+    limit: "45",
     chart: "most-played",
   }).href;
   try {
