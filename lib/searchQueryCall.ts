@@ -7,7 +7,7 @@ const searchQueryCall = async (query: string, types?: SearchType) => {
   const headers = getHeaders();
   const requestURL = getURL("/v1/catalog/us/search", {
     term: query,
-    limit: types ? "50" : "10",
+    limit: types ? "25" : "10",
     types: types ? types : "albums,artists,songs,music-videos",
   }).href;
   try {
