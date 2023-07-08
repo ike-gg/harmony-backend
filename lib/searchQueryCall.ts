@@ -1,7 +1,7 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-type SearchType = "albums" | "artists" | "songs" | "music-videos";
+type SearchType = "albums" | "artists" | "songs" | "music-videos" | "playlists";
 
 const searchQueryCall = async (query: string, types?: SearchType) => {
   const headers = getHeaders();
