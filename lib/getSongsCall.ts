@@ -1,18 +1,16 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const getSongsCall = async (songsId: string[]) => {
+const getSongsCall = async (songsId: string[], storefront: string) => {
   const songsIdString = songsId.join(",");
 
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/songs`, {
+  const requestURL = getURL(`/v1/catalog/${storefront}/songs`, {
     ids: songsIdString,
     include: songsId.length > 15 ? "" : "albums,artists",
   }).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
-
-    console.log(request);
 
     if (!request.ok) {
       throw new Error("Something went wrong...");

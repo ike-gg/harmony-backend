@@ -1,9 +1,9 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const popularMusicVideosCall = async () => {
+const popularMusicVideosCall = async (storefront: string) => {
   const headers = getHeaders();
-  const requestURL = getURL("/v1/catalog/us/charts", {
+  const requestURL = getURL(`/v1/catalog/${storefront}/charts`, {
     limit: "15",
     chart: "most-played",
     types: "music-videos",

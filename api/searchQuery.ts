@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import searchQueryCall from "../lib/searchQueryCall";
+import verifyStorefront from "../src/verfiyStorefront";
 
 type SearchType =
   | "albums"
@@ -12,6 +13,9 @@ type SearchType =
 export default async (req: VercelRequest, res: VercelResponse) => {
   const query = req.query.query as string;
   const types = req.query.types as SearchType;
+
+  const countryCodeHeader = req.headers["x-vercel-ip-country"];
+  const countryCode = verifyStorefront(countryCodeHeader?.toString());
 
   if (types) {
     if (
@@ -34,7 +38,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const data = await searchQueryCall(query, types);
+    const data = await searchQueryCall(query, countryCode, types);
     res.statusCode = 200;
     res.send(data);
   } catch (error) {

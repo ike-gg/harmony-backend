@@ -1,9 +1,9 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const getSongCall = async (songId: string) => {
+const getSongCall = async (songId: string, storefront: string) => {
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/songs/${songId}`, {
+  const requestURL = getURL(`/v1/catalog/${storefront}/songs/${songId}`, {
     include: "albums,artists,genres,music-videos",
   }).href;
   try {

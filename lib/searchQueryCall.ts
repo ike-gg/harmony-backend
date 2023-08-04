@@ -3,9 +3,13 @@ import getURL from "../src/getURL";
 
 type SearchType = "albums" | "artists" | "songs" | "music-videos" | "playlists";
 
-const searchQueryCall = async (query: string, types?: SearchType) => {
+const searchQueryCall = async (
+  query: string,
+  storefront: string,
+  types?: SearchType
+) => {
   const headers = getHeaders();
-  const requestURL = getURL("/v1/catalog/us/search", {
+  const requestURL = getURL(`/v1/catalog/${storefront}/search`, {
     term: query,
     limit: types ? "25" : "10",
     types: types ? types : "albums,artists,songs,music-videos",

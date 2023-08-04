@@ -1,8 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import getArtistCall from "../lib/getArtistCall";
+import verifyStorefront from "../src/verfiyStorefront";
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   const id = req.query.id as string;
+
+  const countryCodeHeader = req.headers["x-vercel-ip-country"];
+  const countryCode = verifyStorefront(countryCodeHeader?.toString());
 
   if (!id) {
     res.statusCode = 400;
@@ -11,7 +15,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const data = await getArtistCall(id);
+    const data = await getArtistCall(id, countryCode);
     res.statusCode = 200;
     res.send(data);
   } catch (error) {

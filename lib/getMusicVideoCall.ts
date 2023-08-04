@@ -1,11 +1,14 @@
 import getHeaders from "../src/getHeaders";
 import getURL from "../src/getURL";
 
-const getMusicVideoCall = async (musicVideoId: string) => {
+const getMusicVideoCall = async (musicVideoId: string, storefront: string) => {
   const headers = getHeaders();
-  const requestURL = getURL(`/v1/catalog/us/music-videos/${musicVideoId}`, {
-    include: "albums,artists,genres,songs",
-  }).href;
+  const requestURL = getURL(
+    `/v1/catalog/${storefront}/music-videos/${musicVideoId}`,
+    {
+      include: "albums,artists,genres,songs",
+    }
+  ).href;
   try {
     const request = await fetch(requestURL, { headers: headers });
 
