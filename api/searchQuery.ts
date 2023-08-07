@@ -13,17 +13,21 @@ type SearchType =
 export default async (req: VercelRequest, res: VercelResponse) => {
   const query = req.query.query as string;
   const types = req.query.types as SearchType;
+  const typesArray = types ? types.split(",") : types;
 
   const countryCodeHeader = req.headers["x-vercel-ip-country"];
   const countryCode = verifyStorefront(countryCodeHeader?.toString());
 
-  if (types) {
+  if (typesArray) {
     if (
-      types !== "albums" &&
-      types !== "artists" &&
-      types !== "songs" &&
-      types !== "music-videos" &&
-      types !== "playlists"
+      !typesArray.every(
+        (type) =>
+          type === "albums" ||
+          type === "artists" ||
+          type === "songs" ||
+          type === "music-videos" ||
+          type === "playlists"
+      )
     ) {
       res.statusCode = 400;
       res.send({ error: "bad request" });
